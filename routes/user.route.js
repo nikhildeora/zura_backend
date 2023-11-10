@@ -5,9 +5,12 @@ const userRoute = express.Router();
 userRoute.get("/", async (req,res)=>{
     try {
         let allUsers = await UserModel.find();
-        res.send(allUsers);
+        res.status(200).json(allUsers);
     } catch (error) {
-        res.send({"message":"error while fetching users",error})
+        res.status(500).json({
+            "message":"error while fetching users",
+            error
+        })
     }
 });
 
@@ -19,24 +22,39 @@ userRoute.post("/create_user", async (req,res)=>{
             const new_user = new userRoute({...user_body});
             await new_user.save();
             const current_user = await userRoute.findOne({user_email:user_body.user_email});
-            res.send({"message":"user created",current_user});
+            res.status(201).json({
+                "message":"user created",
+                current_user
+            })
         }else{
-            res.send({"message":"user existed","current_user":user_check[0]});
+            res.status(200).json({
+                "message":"user existed",
+                "current_user":user_check[0]
+            })
         }
     } catch (error) {
-        res.send({"message":"error while creating user",error})
+        res.send(500).json({
+            "message":"error while creating user",
+            error
+        })
     }
 })
 
-userRoute.patch("/change_name/:id", async (req,res)=>{
+userRoute.patch("/change_user/:id", async (req,res)=>{
     const ID = req.params.id;
     const payload = req.body;
     try {
         await userRoute.findByIdAndUpdate({_id:ID},payload);
         let current_user = await userRoute.findById(ID);
-        res.send({"message":"user name updated successfully",current_user});        
+        res.status(200).send({
+            "message": "User updated successfully",
+            current_user
+        });        
     } catch (error) {
-        res.send({"message":"error while changing user name",error})
+        res.status(500).send({
+            "message": "Error while changing user name",
+            error
+        });        
     }
 });
 
