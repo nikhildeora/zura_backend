@@ -2,7 +2,7 @@ const express = require("express");
 const {ChatModel} = require("../models/chat.model.js");
 const chatRoute = express();
 
-chatRoute.get("/", async(req, res)=>{
+chatRoute.get("/getchat", async(req, res)=>{
         const user_id = req.headers.authorization; 
     try {
         const chatBot_info = await ChatModel.findOne({user_id});

@@ -14,7 +14,7 @@ const ChatSchema = mongoose.Schema(
     positionOnScreen: { type: String, required: true },
     distanceFromBottom: { type: String, required: true },
     horizontalDistance: { type: String, required: true },
-    botIcon: { type: URL, required: true },
+    botIcon: { type: String, required: true },
     user_id : {type: String, required : true, unique : true}
   },
   {
@@ -22,6 +22,6 @@ const ChatSchema = mongoose.Schema(
   }
 );
 
-const ChatModel = mongoose.model("chatbot", WidgetSchema);
+const ChatModel = mongoose.model("chatbot", ChatSchema);
 
 module.exports = { ChatModel };
