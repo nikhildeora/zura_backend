@@ -26,7 +26,7 @@ projectRoute.post("/create_project", async (req, res) => {
     const new_project = new ProjectModel({project_name, user_id});
     await new_project.save();
     const projects = await ProjectModel.find({ user_id });
-    res.status(201).json({ "message": "successfully created new project", projects});
+    res.status(201).json({ "message": "Project create successfully", projects});
   } catch (error) {
     res.status(500).json({
         "message": "error in creating project", 

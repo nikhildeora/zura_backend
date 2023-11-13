@@ -20,7 +20,7 @@ userRoute.get("/:user_id", async (req, res) => {
   try {
     let current_user = await UserModel.findById(ID);
     res.status(200).json({
-      "message" : "successfully get current user",
+      "message" : "User loggedIn",
       current_user
     });
   } catch (error) {
@@ -40,12 +40,12 @@ userRoute.post("/create_user", async (req, res) => {
     if (user_check.length === 0) {
       let current_user = await UserModel.create({ user_email });
       return res.status(201).json({
-        message: "user successfully created",
+        message: "User Successfully Created",
         current_user,
       });
     } else {
       return res.status(200).json({
-        message: "user existed",
+        message: "User Existed",
         current_user: user_check[0],
       });
     }
@@ -64,7 +64,7 @@ userRoute.patch("/change_user/:id", async (req, res) => {
     await UserModel.findByIdAndUpdate({ _id: ID }, payload);
     let current_user = await UserModel.findById(ID);
     res.status(200).send({
-      message: "User updated successfully",
+      message: "User Updated Successfully",
       current_user,
     });
   } catch (error) {

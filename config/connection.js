@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
+require("dotenv").config()
 
-const connection = mongoose.connect("mongodb+srv://nikhil:nikhil@cluster0.tyht4lr.mongodb.net/zura_project");
+const connection = mongoose.connect(process.env.MONGO_ATLAS_LINK);
 
 module.exports = {connection};

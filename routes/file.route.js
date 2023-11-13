@@ -25,8 +25,10 @@ fileRoute.post("/create_file", async (req,res)=>{
         const new_file = new FileModel(payload);
         await new_file.save();
         await ProjectModel.findByIdAndUpdate({_id:payload.project_id},{last_edited: Date.now()});
+        const files = await FileModel.find({project_id:payload.project_id});
         res.status(201).json({
-            "message": "New file created successfully"
+            "message": "File created successfully",
+            files
         });
     } catch (error) {
         res.status(400).json({
@@ -42,8 +44,10 @@ fileRoute.patch("/change_description/:file_id/:project_id", async(req,res)=>{
     try {
         await FileModel.findByIdAndUpdate({_id:file_id},payload); 
         await ProjectModel.findByIdAndUpdate({_id:project_id},{last_edited: Date.now()});
+        const files = await FileModel.find({project_id});
         res.status(200).json({ 
-        "message": "File updated successfully"
+            "message": "File updated successfully",
+            files
         });
     } catch (error) {
         res.status(404).json({
@@ -58,8 +62,10 @@ fileRoute.delete("/delete_file/:file_id/:project_id", async (req,res)=>{
     try {
         await FileModel.findByIdAndDelete(file_id);
         await ProjectModel.findByIdAndUpdate({_id:project_id},{last_edited: Date.now()});
+        const files = await FileModel.find({project_id});
         res.status(200).json({
-            "message": "File deleted successfully"
+            "message": "File deleted successfully",
+            files
         });        
     } catch (error) {
         res.status(404).send({

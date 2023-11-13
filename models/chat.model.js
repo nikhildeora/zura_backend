@@ -2,19 +2,19 @@ const mongoose = require("mongoose");
 
 const ChatSchema = mongoose.Schema(
   {
-    chatbotName: { type: String, required: true },
-    welcomeMessage: { type: String, required: true },
-    inputPlaceholder: { type: String, required: true },
-    primaryColor: { type: String, required: true },
-    fontColor: { type: String, required: true },
-    fontSize: { type: String, required: true },
-    chatHeight: { type: String, required: true },
-    showSources: { type: Boolean, required: true },
-    chatIconSize: { type: String, required: true },
-    positionOnScreen: { type: String, required: true },
-    distanceFromBottom: { type: String, required: true },
-    horizontalDistance: { type: String, required: true },
-    botIcon: { type: String, required: true },
+    chatbotName: String ,
+    welcomeMessage: String ,
+    inputPlaceholder: String ,
+    primaryColor:  { type: String, default : "green" },
+    fontColor:  { type: String, default : "black" },
+    fontSize:  { type: Number, default : 25 },
+    chatHeight:  { type: Number, default : 30 },
+    showSources:  { type: Boolean, default : true },
+    chatIconSize:  { type: String, default : "small" },
+    positionOnScreen:  { type: String, default : "top" },
+    distanceFromBottom:  { type: Number, default : 20 },
+    horizontalDistance:  { type: Number, default : 20 },
+    botIcon: String ,
     user_id : {type: String, required : true, unique : true}
   },
   {
